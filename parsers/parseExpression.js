@@ -23,12 +23,12 @@ const parseExpression = str => {
   const intervalInit = { intervalInSec: periods.day }
 
   const textLength = splitText.length
-  
-  // Date is not valid    
+
+  // Date is not valid
   if (textLength > 3 || textLength < 2) return handleError(1)
-  
+
   if (types['every'].test(splitText[0])) {
-      
+
     if (!testMultiple(text, timeRanges.map(range => types[range])))
       return handleError(1) //This is a wrong syntax
     else if (!types['anyNumber'].test(splitedSchedule)) {
@@ -68,7 +68,7 @@ const parseExpression = str => {
         }, intervalInit)
     }
   }
-    console.log(splitedSchedule);
+
   return stringTest('at', splitText[0])
     ? handleAt(splitedSchedule, text)
     : {
@@ -76,7 +76,7 @@ const parseExpression = str => {
       nextExec: intervalInit.nextExecSecRemaining,
       intervalInSec: intervalInit.intervalInSec,
   }
-    
+
 }
 
 module.exports = parseExpression
