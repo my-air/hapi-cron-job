@@ -4,9 +4,9 @@ const getTimeData = require('../helpers/getTimeData');
 const periods = require('../helpers/periods');
 
 const clockTime = {
-  am: (text, splitedSchedule) =>
+  am: (splitedSchedule) =>
     (splitedSchedule.length != 5) ? ("0" + splitedSchedule) : splitedSchedule,
-  pm: (text, splitedSchedule) =>
+  pm: (splitedSchedule) =>
     (Number((splitedSchedule).split(':')[0]) + 12).toString()
     + ":"
     + (splitedSchedule).split(':')[1]
@@ -21,7 +21,7 @@ const handleAt = (splitedSchedule, text) => {
   const time = clockTime[text](splitedSchedule)
     || setTime(splitedSchedule)
     || handleError(2)
-  
+
   const actualTime = getTimeData().time
   const diff = {
     s: time.substr(6,2)-actualTime.substr(6,2),
@@ -37,7 +37,7 @@ const handleAt = (splitedSchedule, text) => {
     firstExec: diffSec,
     nextExec: diffSec + periods.day,
     intervalInSec: periods.day
-  }    
+  }
 }
 
 module.exports = handleAt
